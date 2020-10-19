@@ -1,0 +1,65 @@
+{
+  "name": "node-flinks",
+  "version": "0.1.0",
+  "description": "Flinks API wrapper for Node.js",
+  "author": "Neo Financial Engineering <engineering@neofinancial.com>",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "license": "MIT",
+  "homepage": "https://github.com/neofinancial/node-flinks",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:neofinancial/node-flinks.git"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test:client": "ts-node src/client-test.ts",
+    "test": "NODE_ENV=test TZ=UTC jest",
+    "clean": "rimraf build",
+    "clean:modules": "rimraf node_modules",
+    "lint": "eslint \"**/*.{ts,js}\"",
+    "format": "prettier --write \"**/*.{ts,js,json,yaml,yml,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,yaml,yml,md}\"",
+    "prepublishOnly": "rimraf build && tsc"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --max-warnings 100"
+    ],
+    "*.{ts,js,json,yaml,yml,md}": [
+      "prettier --write"
+    ]
+  },
+  "files": [
+    "/build/*"
+  ],
+  "dependencies": {
+    "camelcase-keys": "^6.2.2",
+    "debug": "^4.2.0",
+    "got": "^11.7.0"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.5",
+    "@types/got": "^9.6.11",
+    "@types/jest": "^26.0.14",
+    "@types/node": "^14.11.10",
+    "eslint": "^6.4.0",
+    "eslint-config-neo": "^0.5.2",
+    "husky": "^4.3.0",
+    "jest": "^26.5.3",
+    "lint-staged": "^10.4.2",
+    "prettier": "^1.19.1",
+    "ts-jest": "^26.4.1",
+    "ts-node": "^9.0.0",
+    "typescript": "^3.9.7"
+  }
+}
