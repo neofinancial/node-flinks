@@ -3,6 +3,7 @@
 import FlinksClient from '.';
 
 (async (): Promise<void> => {
+  // All the keys used in this test are for the Flinks sandbox and come from the Flinks API docs
   const flinks = new FlinksClient('toolbox', '43387ca6-0391-4c82-857d-70d95f087ecb');
 
   try {
