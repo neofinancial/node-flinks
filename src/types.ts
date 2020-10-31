@@ -79,6 +79,17 @@ export interface FlinksSummaryAccountResponse {
   Id: string;
 }
 
+export interface FlinksStatementsResponse {
+  AccountNumber: string;
+  Statements: FlinksStatementResponse[];
+}
+
+export interface FlinksStatementResponse {
+  UniqueId: string;
+  FileType: string;
+  Base64Bytes: string;
+}
+
 export interface ResponseBase {
   httpStatusCode: number;
   links: FlinksResponseLink[];
@@ -137,4 +148,15 @@ export interface AccountResponse {
   currency: string;
   holder: FlinksHolderResponse;
   id: string;
+}
+
+export interface StatementsResponse {
+  accountNumber: string;
+  statements: StatementResponse[];
+}
+
+export interface StatementResponse {
+  uniqueId: string;
+  fileType: string;
+  base64Bytes: string;
 }

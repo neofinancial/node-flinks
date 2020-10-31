@@ -15,6 +15,13 @@ import {
   GetAccountsSummaryAsyncResponse
 } from './commands/accounts-summary';
 
+import {
+  getStatements,
+  GetStatementsOptions,
+  GetStatementsResponse,
+  GetStatementsAsyncResponse
+} from './commands/statements';
+
 class FlinksClient {
   private client: Got;
 
@@ -38,6 +45,10 @@ class FlinksClient {
     options: GetAccountsSummaryOptions
   ): Promise<GetAccountsSummaryResponse | GetAccountsSummaryAsyncResponse> {
     return getAccountsSummary(this.client, options);
+  }
+
+  public getStatements(options: GetStatementsOptions): Promise<GetStatementsResponse | GetStatementsAsyncResponse> {
+    return getStatements(this.client, options);
   }
 }
 
