@@ -64,6 +64,21 @@ export interface FlinksAccountResponse {
   Id: string;
 }
 
+export interface FlinksSummaryAccountResponse {
+  TransitNumber: string;
+  InstitutionNumber: string;
+  OverdraftLimit: number;
+  Title: string;
+  AccountNumber: string;
+  Balance: FlinksBalanceResponse;
+  Category: string;
+  Type: string;
+  Currency: string;
+  Holder: FlinksHolderResponse;
+  EftEligibleRatio: number;
+  Id: string;
+}
+
 export interface ResponseBase {
   httpStatusCode: number;
   links: FlinksResponseLink[];
