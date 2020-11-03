@@ -5,20 +5,24 @@ import {
   getAccountsDetail,
   GetAccountsDetailOptions,
   GetAccountsDetailResponse,
-  GetAccountsDetailAsyncResponse
-} from './commands/accounts';
-
+  getAccountsDetailAsync,
+  GetAccountsDetailAsyncResponse,
+  GetAccountsDetailAsyncOptions
+} from './commands/accounts-detail';
 import {
   getAccountsSummary,
   GetAccountsSummaryOptions,
   GetAccountsSummaryResponse,
+  getAccountsSummaryAsync,
+  GetAccountsSummaryAsyncOptions,
   GetAccountsSummaryAsyncResponse
 } from './commands/accounts-summary';
-
 import {
   getStatements,
   GetStatementsOptions,
   GetStatementsResponse,
+  getStatementsAsync,
+  GetStatementsAsyncOptions,
   GetStatementsAsyncResponse
 } from './commands/statements';
 
@@ -41,14 +45,32 @@ class FlinksClient {
     return getAccountsDetail(this.client, options);
   }
 
+  public getAccountsDetailAsync(
+    options: GetAccountsDetailAsyncOptions
+  ): Promise<GetAccountsDetailResponse | GetAccountsDetailAsyncResponse> {
+    return getAccountsDetailAsync(this.client, options);
+  }
+
   public getAccountsSummary(
     options: GetAccountsSummaryOptions
   ): Promise<GetAccountsSummaryResponse | GetAccountsSummaryAsyncResponse> {
     return getAccountsSummary(this.client, options);
   }
 
+  public getAccountsSummaryAsync(
+    options: GetAccountsSummaryAsyncOptions
+  ): Promise<GetAccountsSummaryResponse | GetAccountsSummaryAsyncResponse> {
+    return getAccountsSummaryAsync(this.client, options);
+  }
+
   public getStatements(options: GetStatementsOptions): Promise<GetStatementsResponse | GetStatementsAsyncResponse> {
     return getStatements(this.client, options);
+  }
+
+  public getStatementsAsync(
+    options: GetStatementsAsyncOptions
+  ): Promise<GetStatementsResponse | GetStatementsAsyncResponse> {
+    return getStatementsAsync(this.client, options);
   }
 }
 

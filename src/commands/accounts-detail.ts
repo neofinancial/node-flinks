@@ -1,6 +1,7 @@
 import createDebug from 'debug';
 import { Got } from 'got';
 
+import FlinksError from '../lib/flinks-error';
 import {
   FlinksResponseBase,
   FlinksAccountResponse,
@@ -31,6 +32,10 @@ export interface GetAccountsDetailOptions {
   withBalance?: boolean;
   accountsFilter?: string[];
   daysOfTransactions?: string;
+}
+
+export interface GetAccountsDetailAsyncOptions {
+  requestId: string;
 }
 
 export interface FlinksGetAccountsDetailResponse extends FlinksResponseBase {
@@ -111,10 +116,52 @@ const getAccountsDetail = async (
       throw new Error(`Unexpected response code from getAccountsDetail: ${data.HttpStatusCode}`);
     }
   } catch (error) {
-    debug('flinks getAccountsDetail error', error);
+    if (error.response?.body) {
+      debug('flinks getAccountsDetail error response', error.response.body);
 
-    throw error;
+      throw new FlinksError('getAccountsDetail', { ...error.response.body });
+    } else {
+      debug('flinks getAccountsDetail error', error);
+
+      throw error;
+    }
   }
 };
 
-export { getAccountsDetail };
+const getAccountsDetailAsync = async (
+  client: Got,
+  options: GetAccountsDetailAsyncOptions
+): Promise<GetAccountsDetailResponse | GetAccountsDetailAsyncResponse> => {
+  try {
+    const response = await client.post<FlinksGetAccountsDetailResponse | FlinksGetAccountsDetailAsyncResponse>(
+      `BankingServices/GetAccountsDetailAsync/${options.requestId}`,
+      {
+        responseType: 'json'
+      }
+    );
+
+    debug('flinks getAccountsDetailAsync response', response.body);
+
+    const data = response.body;
+
+    if (isResponse(data)) {
+      return transformResponse<FlinksGetAccountsDetailResponse, GetAccountsDetailResponse>(data);
+    } else if (isAsyncResponse(data)) {
+      return transformResponse<FlinksGetAccountsDetailAsyncResponse, GetAccountsDetailAsyncResponse>(data);
+    } else {
+      throw new Error(`Unexpected response code from getAccountsDetailAsync: ${data.HttpStatusCode}`);
+    }
+  } catch (error) {
+    if (error.response?.body) {
+      debug('flinks getAccountsDetailAsync error response', error.response.body);
+
+      throw new FlinksError('getAccountsDetailAsync', { ...error.response.body });
+    } else {
+      debug('flinks getAccountsDetailAsync error', error);
+
+      throw error;
+    }
+  }
+};
+
+export { getAccountsDetail, getAccountsDetailAsync };

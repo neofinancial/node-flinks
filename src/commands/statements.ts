@@ -1,6 +1,7 @@
 import createDebug from 'debug';
 import { Got } from 'got';
 
+import FlinksError from '../lib/flinks-error';
 import {
   FlinksResponseBase,
   FlinksStatementsResponse,
@@ -21,6 +22,10 @@ export interface GetStatementsOptions {
   requestId: string;
   numberOfStatements?: string;
   accountsFilter?: string[];
+}
+
+export interface GetStatementsAsyncOptions {
+  requestId: string;
 }
 
 export interface FlinksGetStatementsResponse extends FlinksResponseBase {
@@ -101,10 +106,52 @@ const getStatements = async (
       throw new Error(`Unexpected response code from getStatements: ${data.HttpStatusCode}`);
     }
   } catch (error) {
-    debug('flinks getStatements error', error);
+    if (error.response?.body) {
+      debug('flinks getStatements error response', error.response.body);
 
-    throw error;
+      throw new FlinksError('getStatements', { ...error.response.body });
+    } else {
+      debug('flinks getStatements error', error);
+
+      throw error;
+    }
   }
 };
 
-export { getStatements };
+const getStatementsAsync = async (
+  client: Got,
+  options: GetStatementsAsyncOptions
+): Promise<GetStatementsResponse | GetStatementsAsyncResponse> => {
+  try {
+    const response = await client.post<FlinksGetStatementsResponse | FlinksGetStatementsAsyncResponse>(
+      `BankingServices/GetStatementsAsync/${options.requestId}`,
+      {
+        responseType: 'json'
+      }
+    );
+
+    debug('flinks getStatementsAsync response', response.body);
+
+    const data = response.body;
+
+    if (isResponse(data)) {
+      return transformResponse<FlinksGetStatementsResponse, GetStatementsResponse>(data);
+    } else if (isAsyncResponse(data)) {
+      return transformResponse<FlinksGetStatementsAsyncResponse, GetStatementsAsyncResponse>(data);
+    } else {
+      throw new Error(`Unexpected response code from getStatementsAsync: ${data.HttpStatusCode}`);
+    }
+  } catch (error) {
+    if (error.response?.body) {
+      debug('flinks getStatementsAsync error response', error.response.body);
+
+      throw new FlinksError('getStatementsAsync', { ...error.response.body });
+    } else {
+      debug('flinks getStatementsAsync error', error);
+
+      throw error;
+    }
+  }
+};
+
+export { getStatements, getStatementsAsync };

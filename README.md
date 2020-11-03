@@ -8,7 +8,7 @@ A Flinks API wrapper for Node.js
 
 ### Installation
 
-`yarn add @neofinancial/node-flinks`
+`yarn add node-flinks`
 
 ### Creating a client
 
@@ -45,12 +45,27 @@ This library uses the [debug](https://github.com/visionmedia/debug) library. To 
 
 The API of this library mostly follows the Flinks API as specified in the [REST API docs](https://docs.flinks.io/reference/flinks-api). The main difference is that the Flinks API uses PascalCase for object keys and this library uses camelCase.
 
-We have not yet implemented all the endpoints in the Flinks REST API. The endpoints that are implemented are:
+Here is a list of all the Flinks API endpoints along with the corresponding library method. We have not yet implemented all the endpoints in the Flinks REST API. If an endpoint you need is missing please consider submitting a pull request.
 
-| Endpoint                             | Client Method       | Docs                                                                          |
-| ------------------------------------ | ------------------- | ----------------------------------------------------------------------------- |
-| `/Authorize`                         | `authorize`         | https://docs.flinks.io/reference/authorize-token#authorize-with-token         |
-| `/BankingServices/GetAccountsDetail` | `getAccountsDetail` | https://docs.flinks.io/reference/accounts-information#step-2-calling-for-data |
+| Endpoint                     | Client Method             | Reference                                                                                     |
+| ---------------------------- | ------------------------- | --------------------------------------------------------------------------------------------- |
+| `/AnswerMFAQuestions`        | Not implemented           | [Docs](https://docs.flinks.io/reference/accounts-information#answermfaquestions)              |
+| `/Attributes`                | Not implemented           | [Docs](https://docs.flinks.io/reference/attributes#attributes-api)                            |
+| `/Authorize`                 | `authorize`               | [Docs](https://docs.flinks.io/reference/authorize-token#authorize-with-token)                 |
+| `/DeleteCard`                | Not implemented           | [Docs](https://docs.flinks.io/reference/accounts-information#deletecard)                      |
+| `/GenerateAuthorizeToken`    | Not implemented           | [Docs](https://docs.flinks.io/reference/authorize-token#generateauthorizetoken)               |
+| `/GetAccountsDetail`         | `getAccountsDetail`       | [Docs](https://docs.flinks.io/reference/accounts-information#step-2-calling-for-data)         |
+| `/GetAccountsDetailAsync`    | `getAccountsDetailAsync`  | [Docs](https://docs.flinks.io/reference/accounts-information#step-3-calling-for-pending-data) |
+| `/GetAccountsSummary`        | `getAccountsSummary`      | [Docs](https://docs.flinks.io/reference/accounts-information#getaccountssummary)              |
+| `/GetAccountsSummaryAsync`   | `getAccountsSummaryAsync` | [Docs](https://docs.flinks.io/reference/accounts-information#getaccountssummaryasync)         |
+| `/GetAllAttributes`          | Not implemented           | [Docs](https://docs.flinks.io/reference/attributes#getallattributes)                          |
+| `/GetCreditRiskAttributes`   | Not implemented           | [Docs](https://docs.flinks.io/reference/attributes#getcreditriskattributes)                   |
+| `/GetIncomeAttributes`       | Not implemented           | [Docs](https://docs.flinks.io/reference/attributes#getincomeattributes)                       |
+| `/GetMFAQuestions`           | Not implemented           | [Docs](https://docs.flinks.io/reference/accounts-information#getmfaquestions)                 |
+| `/GetStatements`             | `getStatements`           | [Docs](https://docs.flinks.io/reference/accounts-information#getstatements-1)                 |
+| `/GetUserAnalysisAttributes` | Not implemented           | [Docs](https://docs.flinks.io/reference/attributes#getuseranalysisattributes)                 |
+| `/Investments`               | Not implemented           | [Docs](https://docs.flinks.io/reference/investments#investments-1)                            |
+| `/SetScheduledRefresh`       | Not implemented           | [Docs](https://docs.flinks.io/reference/accounts-information#setscheduledrefresh)             |
 
 ## Contributing
 

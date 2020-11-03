@@ -1,12 +1,13 @@
-# Neo Flinks Changelog
+# Node Flinks Changelog
 
-## 0.1.3 (October 18, 2020)
+## 0.2.0 (November 2, 2020)
 
-Add `getStatements` command
-
-## 0.1.2 (October 18, 2020)
-
-Add `getAccountsSummary` command
+- Throw `FlinksError` when receiving an error response
+- Add `getAccountsDetailAsync` command
+- Add `getAccountsSummary` command
+- Add `getAccountsSummaryAsync` command
+- Add `getStatements` command
+- Add `getStatementsAsync` command
 
 ## 0.1.1 (October 18, 2020)
 

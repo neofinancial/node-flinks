@@ -3,10 +3,11 @@
 import createDebug from 'debug';
 import { Got } from 'got';
 
+import FlinksError from '../lib/flinks-error';
 import { FlinksLoginResponse, LoginResponse, FlinksResponseBase, ResponseBase } from '../types';
 import { transformOptions, transformResponse } from '../lib/transform-keys';
 
-export interface FlinksAuthorizeOptions {
+interface FlinksAuthorizeOptions {
   Institution?: string;
   Username?: string;
   Password?: string;
@@ -65,10 +66,12 @@ const authorize = async (client: Got, options: AuthorizeOptions): Promise<Author
     return transformResponse<FlinksAuthorizeResponse, AuthorizeResponse>(data);
   } catch (error) {
     if (error.response?.body) {
-      debug('flinks authorize response', error.response.body);
+      debug('flinks authorize error response', error.response.body);
 
-      return transformResponse<FlinksAuthorizeResponse, AuthorizeResponse>(error.response.body);
+      throw new FlinksError('authorize', { ...error.response.body });
     } else {
+      debug('flinks authorize error', error);
+
       throw error;
     }
   }
