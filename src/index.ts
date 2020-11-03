@@ -13,6 +13,7 @@ export {
 
 export {
   GetAccountsSummaryOptions,
+  GetAccountsSummaryAsyncOptions,
   FlinksGetAccountsSummaryResponse,
   FlinksGetAccountsSummaryAsyncResponse,
   GetAccountsSummaryResponse,
@@ -21,6 +22,7 @@ export {
 
 export {
   GetStatementsOptions,
+  GetStatementsAsyncOptions,
   FlinksGetStatementsResponse,
   FlinksGetStatementsAsyncResponse,
   GetStatementsResponse,
