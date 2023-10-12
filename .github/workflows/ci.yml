@@ -18,7 +18,7 @@ jobs:
       - name: Install
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-          npm i -g npm
+          npm i -g npm@^9.0.0
           npm ci --prefer-offline
       - name: Format check
         run: npm run format:check
